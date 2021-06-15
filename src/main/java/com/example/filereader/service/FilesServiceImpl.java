@@ -41,13 +41,15 @@ public class FilesServiceImpl implements FilesService {
     @Autowired
     private Job csvInsertjob;
 
+
+
     @Override
     public void saveFile(MultipartFile file) throws IOException, JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         if(file.isEmpty()){
             throw new ValidationException("602");
-        } else if(file.getSize()/1000000000 >= 1){
+        } /*else if(file.getSize()/1000000000 >= 1){
             throw new ValidationException("603");
-        }
+        }*/
         Path path = Paths.get(targetPath+file.getOriginalFilename());
         file.transferTo(path);
         System.out.println("filesaved in filesystem");
