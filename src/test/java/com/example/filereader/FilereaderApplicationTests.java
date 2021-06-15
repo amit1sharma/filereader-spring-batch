@@ -28,7 +28,7 @@ class FilereaderApplicationTests {
     @Test
     void contextLoads() throws Exception {
         byte[] buffer = "fileName,fileType,fileSize\n".getBytes();
-        int number_of_lines = 4000000;
+        int number_of_lines = 400000;
 
         FileChannel rwChannel = new RandomAccessFile(new File("/home/yamraaj/Downloads/upload_path/test.txt"), "rw").getChannel();
         ByteBuffer wrBuf = rwChannel.map(FileChannel.MapMode.READ_WRITE, 0, buffer.length * number_of_lines);
