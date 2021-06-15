@@ -9,6 +9,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,18 +27,23 @@ class FilereaderApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
-        StringBuffer sb = new StringBuffer("");
-        /*for(int i =0;i < 100000000;i++){
-            sb.append("{\"name\":\"amit"+i+"\"}");
-        }*/
-        MockMultipartFile file = new MockMultipartFile( "file", "hello.txt",
-                MediaType.APPLICATION_JSON_VALUE, sb.toString().getBytes()
-        );
-        System.out.println("filesize in gb : "+file.getSize()/1000000000);
+        byte[] buffer = "fileName,fileType,fileSize\n".getBytes();
+        int number_of_lines = 4000000;
+
+        FileChannel rwChannel = new RandomAccessFile(new File("/home/yamraaj/Downloads/upload_path/test.txt"), "rw").getChannel();
+        ByteBuffer wrBuf = rwChannel.map(FileChannel.MapMode.READ_WRITE, 0, buffer.length * number_of_lines);
+        for (int i = 0; i < number_of_lines; i++)
+        {
+            buffer = (i+",fileType,fileSize\n").getBytes();
+            wrBuf.put(buffer);
+        }
+        rwChannel.close();
+
+        InputStream is = new FileInputStream(new File("/home/yamraaj/Downloads/upload_path/test.txt"));
+        MockMultipartFile file = new MockMultipartFile( "file", "csv.txt",MediaType.APPLICATION_JSON_VALUE, is);
         MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         mockMvc.perform(multipart("/upload/file").file(file))
                 .andExpect(status().isAccepted());
-
     }
 
 }

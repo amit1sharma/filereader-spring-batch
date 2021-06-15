@@ -1,11 +1,6 @@
 package com.example.filereader.entity;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.activation.FileDataSource;
 import javax.persistence.*;
-import java.sql.Blob;
-import java.sql.Clob;
 
 @Entity
 @Table(name = "FILES")
@@ -23,11 +18,7 @@ public class Files {
     private String fileType;
 
     @Column(name = "file_size")
-    private Long fileSize;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private FileData fileData;
+    private String fileSize;
 
     public Long getId() {
         return id;
@@ -53,19 +44,18 @@ public class Files {
         this.fileType = fileType;
     }
 
-    public Long getFileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Long fileSize) {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 
-    public Files(String fileName, String fileType, Long fileSize, FileData fileData) {
+    public Files(String fileName, String fileType, String fileSize) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
-        this.fileData = fileData;
     }
 
     public Files() {

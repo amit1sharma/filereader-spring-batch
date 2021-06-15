@@ -29,6 +29,4 @@ To test upload feature there is a small html page available which can be accesse
     * file_name
     * file_type
     * file_size
-* FILEDATA
-    * file_id
-    * file_data
+

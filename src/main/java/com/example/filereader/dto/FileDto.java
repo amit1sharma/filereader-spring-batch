@@ -2,23 +2,13 @@ package com.example.filereader.dto;
 
 import javax.persistence.*;
 
-public class RespopnseFiles {
-
-    private Long id;
+public class FileDto {
 
     private String fileName;
 
     private String fileType;
 
-    private Long fileSize;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String fileSize;
 
     public String getFileName() {
         return fileName;
@@ -36,21 +26,30 @@ public class RespopnseFiles {
         this.fileType = fileType;
     }
 
-    public Long getFileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Long fileSize) {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 
 
-    public RespopnseFiles(String fileName, String fileType, Long fileSize) {
+    public FileDto(String fileName, String fileType, String fileSize) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
     }
 
-    public RespopnseFiles() {
+    public FileDto() {
+    }
+
+    @Override
+    public String toString() {
+        return "FileDto{" +
+                "fileName='" + fileName + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", fileSize='" + fileSize + '\'' +
+                '}';
     }
 }
