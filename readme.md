@@ -14,11 +14,19 @@ start jar file using following commmand
 
 java -jar filereader.jar
 
+#### Tech components used
+
+* Java 8
+* Spring MVC
+* Spring boot
+* Spring batch
+* Spring data JPA
+
 #### Endpoints
 
 * /upload/file [post] This is used to upload multipart file
-* /upload/file [get] List all the uploaded files
-* /upload/file/{fileid} [get] List single record with fileid
+* /upload/file [get] List all the records
+* /upload/file/{fileid} [get] List single record with fileId
 
 To test upload feature there is a small html page available which can be accessed from root url path ie. http://localhost:8080/ 
 
